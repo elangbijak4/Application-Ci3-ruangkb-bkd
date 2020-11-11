@@ -620,6 +620,7 @@ class Frontoffice extends CI_Controller {
  
 		$kiriman[19]=$data[$kolom_target];
 		$kiriman[20]='selesai';
+		$kiriman[0]=NULL;
 		
 		//Kirim balik untuk di log verifikasi_new() lewat call ajax dari verifikasi_new()
 		//array_unshift($kiriman,NULL); ga usah di sekretariat karena format surat_masuk sudah sesuai format tabel log_surat_masuk di bankdata
@@ -773,6 +774,8 @@ class Frontoffice extends CI_Controller {
 
 	   $kiriman[19]=$data[$kolom_target];
 	   $kiriman[20]='dipending';
+	   $kiriman[0]=NULL;
+	   //print_r($kiriman);
 	   
 	   //Kirim balik untuk di log verifikasi_new() lewat call ajax dari verifikasi_new()
 	   //array_unshift($kiriman,NULL); ga usah di sekretariat karena format surat_masuk sudah sesuai format tabel log_surat_masuk di bankdata
@@ -1013,6 +1016,7 @@ class Frontoffice extends CI_Controller {
 
 	   $kiriman[19]=$data[$kolom_target];
 	   $kiriman[20]='ditolak';
+	   $kiriman[0]=NULL;
 	   
 	   //Kirim balik untuk di log verifikasi_new() lewat call ajax dari verifikasi_new()
 	   //array_unshift($kiriman,NULL); ga usah di sekretariat karena format surat_masuk sudah sesuai format tabel log_surat_masuk di bankdata
@@ -1059,6 +1063,7 @@ class Frontoffice extends CI_Controller {
    
 		   $kiriman[22]=$data[$kolom_target];
 		   $kiriman[20]='dibaca';
+		   $kiriman[0]=NULL;
 		   
 		   //Kirim balik untuk di log verifikasi_new() lewat call ajax dari verifikasi_new()
 		   //array_unshift($kiriman,NULL); ga usah di sekretariat karena format surat_masuk sudah sesuai format tabel log_surat_masuk di bankdata
@@ -1212,6 +1217,7 @@ class Frontoffice extends CI_Controller {
 	   $kiriman=unserialize($this->session->userdata('kiriman_surat'));//$user = $this->session->userdata('user');
 	   $kiriman[20]='diteruskan';
 	   $kiriman[24]=$data[$kolom_target];
+	   $kiriman[0]=NULL;
 	   
 	   //Kirim balik untuk di log verifikasi_new() lewat call ajax dari verifikasi_new()
 	   //array_unshift($kiriman,NULL); ga usah di sekretariat karena format surat_masuk sudah sesuai format tabel log_surat_masuk di bankdata
