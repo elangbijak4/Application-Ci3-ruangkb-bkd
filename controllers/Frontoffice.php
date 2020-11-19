@@ -49,6 +49,22 @@ class Frontoffice extends CI_Controller {
 	{
 		$this->load->view('loginpage');
 	}
+
+	#0002
+	public function lengkapi_kiriman_untuk_log(){
+		$kiriman_dekrip=$this->enkripsi->dekapsulasiData($_POST['kiriman_enkrip']);
+		$kiriman_dekrip[0]=$_POST['idsurat_masuk'];
+		
+		//Perluas $kiriman_dekrip agar menampung idlogsurat_masuk:
+		array_unshift($kiriman_dekrip,NULL);
+		$kiriman_enkrip=$this->enkripsi->enkapsulasiData($kiriman_dekrip);
+		echo $kiriman_enkrip;
+	}
+
+	public function pemulihan_link_biar_ga_dobel_insert_saat_refresh(){
+		redirect(site_url('Frontoffice/frontoffice_admin/ok/ok/ok'));
+	}
+	#end0002
 	
 	//===========================================TAMBAHAN CONTROLLER DARI SEKRETARIAT=======================================================
 	public function terima_history_surat_frontoffice(){
@@ -1853,6 +1869,7 @@ class Frontoffice extends CI_Controller {
 	//===========================================TAMBAHAN TOMBOL FRONTOFFICE=============================================================
 	public function buka_frontoffice($alamat){
 		//$this->session->set_userdata('alamat',$alamat);
+		$this->session->set_userdata('flag0002','ok_go_ahead');
 		echo "
 		Unggah Surat dan Berkas Langsung ke Front Office
 		<button type='button' id=\"unggah_frontoffice_langsung\" style=\"cursor:pointer;color:white;width:90%;margin-top:5px;\" class=\"btn btn-lg btn-primary shadow-sm\" ><i class=\"fas fa-upload text-white-50\" style=\"color:white\"></i> Unggah Surat dan Berkas Front Office</button>
@@ -13723,12 +13740,35 @@ class Frontoffice extends CI_Controller {
 			</style>
 		";
 		echo "<hr>";
+
+		//=======#0002button1======
+      	$base=site_url('Frontoffice/frontoffice_admin');
+      	$alamat=$this->enkripsi->enkapsulasiData($base);
 		echo "
 		<button class=\"btn btn-lg btn-info shadow-sm kotak\" id=\"baca_surat_masuk\"><i class=\"fas fa-envelope-open fa-lg text-white-100\"></i>
 		<span id=\"counter_surat_masuk_masuk_besar\" class=\"badge badge-danger badge-counter\" style=\"margin-left:-15px;top:-10px;\"></span>
 		<br>Baca Surat Terusan <br>[FrontOffice]</button>
-		<button style=\"cursor:pointer;color:white;\" class=\"kotak d-sm-inline-block btn btn-lg btn-success shadow-sm\" id=\"buat_catatan\" ><i class=\"fas fa-file-alt fa-lg text-white-100\"></i><br>Buat Dokumen <br>[MiniOffice]</button>
+		<!--<button style=\"cursor:pointer;color:white;\" class=\"kotak d-sm-inline-block btn btn-lg btn-success shadow-sm\" id=\"buat_catatan\" ><i class=\"fas fa-file-alt fa-lg text-white-100\"></i><br>Buat Dokumen <br>[MiniOffice]</button>-->
+		<!--#0002button0--->
+		<button style=\"cursor:pointer;color:white;\" class=\"kotak d-sm-inline-block btn btn-lg btn-success shadow-sm\" id=\"unggah_frontoffice_langsung\" ><i class=\"fas fa-file-alt fa-lg text-white-100\"></i><br>Unggah Surat Frontoffice <br>[Langsung]</button>
 		<!-- Script untuk pemanggilan ajax -->
+		<script>      
+		  $(document).ready(function(){
+			$('#unggah_frontoffice_langsung').click(function(){
+			  var loading = $('#pra_tabel');
+			  var tampilkan = $('#penampil_tabel');
+			  tampilkan.hide();
+			  loading.fadeIn(); 
+			  $.post('".site_url('/Frontoffice/buka_frontoffice/'.$alamat)."',{ data:'okbro'},
+			  function(data,status){
+				loading.fadeOut();
+				tampilkan.html(data);
+				tampilkan.fadeIn(2000);
+			  });
+			});
+		  });
+		</script> 
+
 		<script>      
 		$(document).ready(function(){
 			//xcxc
@@ -15373,7 +15413,7 @@ class Frontoffice extends CI_Controller {
 		*/
 	}
 
-	public function frontoffice_admin($penerima=NULL){
+	public function frontoffice_admin($penerima=NULL,$penanda_untuk_log=NULL,$gagal=NULL){
 		$user = $this->session->userdata('user_ruangkaban');
         $str = $user['email'].$user['username']."1@@@@@!andisinra";
         $str = hash("sha256", $str );
@@ -15382,7 +15422,20 @@ class Frontoffice extends CI_Controller {
 			alert("Surat berhasil diteruskan");
 		}
 		if(($user!==FALSE)&&($str==$hash)){
-			$this->load->view('admin_frontoffice/dashboard');
+			$flip_flop = $this->session->userdata('flag0002');
+			if(($penanda_untuk_log=='lakukan_log')&&($penerima!='')&&($gagal!='gagal')&&($flip_flop=='ok_go_ahead')){
+				$data['kiriman_enkrip']=$penerima;
+				//alert('masuk sini 1');
+				//alert($penerima);
+				$this->load->view('admin_frontoffice/dashboard',$data);
+			}else if(($gagal=='gagal')&&($flip_flop=='ok_go_ahead')){
+				$data['gagal']='gagal';
+				//alert('masuk sini 2');
+				$this->load->view('admin_frontoffice/dashboard',$data);
+			}else{
+				//alert('masuk sini 3');
+				$this->load->view('admin_frontoffice/dashboard');
+			}
 		}else {
 			$this->session->set_userdata('percobaan_login','gagal');
 			//redirect( site_url('login/login') );

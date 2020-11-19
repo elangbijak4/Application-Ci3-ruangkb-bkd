@@ -3,6 +3,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 $this->load->library('viewfrommyframework');
 $this->load->library('enkripsi');
 //$listfieldtes=$this->viewfrommyframework->penarik_semua_nama_kolom_sebuah_tabel_view('identpeg');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,14 +70,27 @@ $this->load->library('enkripsi');
       <!-- Tambahan 26/10/2020 -->
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAgenda_histori" aria-expanded="true" aria-controls="collapseAgenda_histori">
+        <a class="nav-link collapsed kelas_header_dashboard" href="#" data-toggle="collapse" data-target="#collapseAgenda_unggah_frontoffice" aria-expanded="true" aria-controls="collapseAgenda_unggah_frontoffice">
+          <i class="fas fa-fw fa-book"></i>
+          <span>Unggah ke Fronoffice</span>
+        </a>
+        <div id="collapseAgenda_unggah_frontoffice" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded" onclick='$("#cetak_laporan").show();$("#cetak_laporan_periodik_agenda").hide();'>
+            <a class="collapse-item" style="cursor:pointer;" id="buka_frontoffice"><button class="btn btn-info btn-xs">Front Office</button></a>
+            <!--<a class="collapse-item" style="cursor:pointer;" id="lihat_bankdata" >Lihat Bankdata</a>-->
+          </div>
+        </div>
+      </li>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed kelas_header_dashboard" href="#" data-toggle="collapse" data-target="#collapseAgenda_histori" aria-expanded="true" aria-controls="collapseAgenda_histori">
           <i class="fas fa-fw fa-book"></i>
           <span>Lacak History Surat</span>
         </a>
         <div id="collapseAgenda_histori" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded" onclick='$("#cetak_laporan").show();$("#cetak_laporan_periodik_agenda").hide();'>
-            <h6 class="collapse-header">History surat frontoofice:</h6>
-            <a class="collapse-item" style="cursor:pointer;" id="lihat_histori_frontoffice" >History Surat Front Office</a>
+            <a class="collapse-item" style="cursor:pointer;" id="lihat_histori_frontoffice" >Log Surat Front Office</a>
             <!--<a class="collapse-item" style="cursor:pointer;" id="lihat_bankdata" >Lihat Bankdata</a>-->
           </div>
         </div>
@@ -106,7 +120,7 @@ $this->load->library('enkripsi');
       <!-- Tambahan 30/09/2020 -->
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAgenda_pelacakan" aria-expanded="true" aria-controls="collapseAgenda_pelacakan">
+        <a class="nav-link collapsed kelas_header_dashboard" href="#" data-toggle="collapse" data-target="#collapseAgenda_pelacakan" aria-expanded="true" aria-controls="collapseAgenda_pelacakan">
           <i class="fas fa-fw fa-book"></i>
           <span>Ruang Surat Bidang</span>
         </a>
@@ -317,7 +331,7 @@ $this->load->library('enkripsi');
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAgenda" aria-expanded="true" aria-controls="collapseAgenda">
+        <a class="nav-link collapsed kelas_header_dashboard" href="#" data-toggle="collapse" data-target="#collapseAgenda" aria-expanded="true" aria-controls="collapseAgenda">
           <i class="fas fa-fw fa-book"></i>
           <span>Agenda Kaban</span>
         </a>
@@ -392,7 +406,7 @@ $this->load->library('enkripsi');
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed kelas_header_dashboard" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-envelope"></i>
           <span>Kelola Surat</span>
         </a>
@@ -540,7 +554,7 @@ $this->load->library('enkripsi');
       $tables = $this->viewfrommyframework->penarik_semua_nama_tabel_view();
       ?>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed kelas_header_dashboard" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-database"></i>
           <span>CRUID Basisdata</span>
         </a>
@@ -570,7 +584,7 @@ $this->load->library('enkripsi');
       
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ubahpassword" aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed kelas_header_dashboard" href="#" data-toggle="collapse" data-target="#ubahpassword" aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-user-secret"></i>
           <span>Kelola Password</span>
         </a>
@@ -621,7 +635,7 @@ $this->load->library('enkripsi');
       
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsevirtual" aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed kelas_header_dashboard" href="#" data-toggle="collapse" data-target="#collapsevirtual" aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-desktop"></i>
           <span>Meja Kerja Virtual</span>
         </a>
@@ -631,13 +645,13 @@ $this->load->library('enkripsi');
             <a class="collapse-item" style="cursor:pointer;" id="user_unggah_ok" data-toggle="modal" data-target="#myModal_suratbaru">User Unggah</a>
             <a class="collapse-item" style="cursor:pointer;" id="notifikasi_surat_ok">Notifikasi Surat</a>
             <a class="collapse-item" style="cursor:pointer;" id="notifikasi_nota">Notifikasi Nota</a>
-            <a class="collapse-item" style="cursor:pointer;" id="buka_frontoffice"><button class="btn btn-info btn-xs">Front Office</button></a>
+            <a class="collapse-item" style="cursor:pointer;" id="buat_catatan">Buat Nota atau Catatan</a>
           </div>
         </div>
       </li>
 
       <?php 
-      $base=base_url();
+      $base=site_url('Frontoffice/frontoffice_admin');
       $alamat=$this->enkripsi->enkapsulasiData($base);
       ?>
       <script>      
@@ -720,7 +734,7 @@ $this->load->library('enkripsi');
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+        <a class="nav-link collapsed kelas_header_dashboard" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-folder"></i>
           <span>Pages</span>
         </a>
@@ -1147,7 +1161,7 @@ $this->load->library('enkripsi');
             
           </div>
           <?php
-              $flag_oknew=$this->session->userdata('modal');
+              $flag_oknew=$this->session->userdata('modal');//popop
               if($flag_oknew!=='ok_new2'){
                 echo "
                     <script>
@@ -1303,6 +1317,7 @@ $this->load->library('enkripsi');
             });
             
           </script> 
+
           <!-- Script untuk pemanggilan ajax -->
           <script>      
           $(document).ready(function(){
@@ -1321,6 +1336,37 @@ $this->load->library('enkripsi');
             });
             
           </script> 
+
+          
+          <!-- Blok kode #0002 -->
+          <script>      
+          $(document).ready(function(){
+            $(".kelas_header_dashboard").click(function(){
+              var tampilkan = $("#penampil_tabel_header_atas");
+              tampilkan.html('<?php echo $this->config->item('nama_bidang'); ?>');
+              tampilkan.fadeIn(2000);
+            });
+            });
+            
+          </script> 
+		  
+          <script>      
+          $(document).ready(function(){
+            $("#buat_catatan").click(function(){
+              var loading = $("#pra_tabel");
+              var tampilkan = $("#penampil_tabel");
+              tampilkan.hide();
+              loading.fadeIn(); 
+              $.post('<?php echo site_url('/Frontoffice/iframe_editor'); ?>',{ data:"okbro"},
+              function(data,status){
+                loading.fadeOut();
+                tampilkan.html(data);
+                tampilkan.fadeIn(2000);
+              });
+            });
+            });
+          </script>
+          <!-- End Blok kode #0002 -->
 
           <!--Skrip untuk menampilkan modal saat window onload-->
           <script type="text/javascript">
@@ -1470,6 +1516,40 @@ $this->load->library('enkripsi');
   </div>
 
 <?php
+
+  #0002kiriman_enkrip
+  if(isset($gagal)&&($gagal=='gagal')){
+    alert("Gagal mengunggah surat...");
+    $this->session->set_userdata('flag0002',NULL);
+  }else{
+    if(isset($kiriman_enkrip)){
+      $kiriman_dekrip=$this->enkripsi->dekapsulasiData($kiriman_enkrip);
+      //print_r($kiriman_dekrip);
+      $kiriman_enkrip_29=$this->enkripsi->enkapsulasiData($kiriman_dekrip[29]);
+      $this->session->set_userdata('flag0002',NULL);
+      //Lakukan perekaman ke log surat masuk di bankdata.
+      echo "
+      <script>
+      $(document).ready(function(){
+          var tampilkan = $(\"#status_kirim_log_ke_bankdata\");
+          $.post('".$this->config->item('link_frontoffice')."index.php/Frontoffice/cari_tau_id_surat_masuk/digest_signature/".$kiriman_enkrip_29."/idsurat_masuk',{ data:\"okbro\"},
+          function(data,status){
+            $.post('".site_url('/Frontoffice/lengkapi_kiriman_untuk_log/')."',{ idsurat_masuk:data,kiriman_enkrip:\"".$kiriman_enkrip."\"},
+            function(data,status){
+              $.post('".$this->config->item('bank_data')."/index.php/Frontoffice/insersi_ke_tabel_log_surat_frontoffice/"."'+data,{ data_enkrip:data},
+              function(data,status){
+                //tampilkan.html(data);
+                alert('Surat sukses diunggah...');
+              });
+            });
+          });
+        });
+      </script>
+      ";
+    }
+  }
+  #end0002kiriman_enkrip
+
   if(isset($data_post_enkrip_hex) || isset($pesan_kirim_surat) || isset($pesan_kirim_berkas)) {
 			//alert('Selamat:\nSurat dan Berkas pendukung sukses diunggah');
 			echo "
