@@ -13,6 +13,85 @@ class Model_frommyframework extends CI_Model
         $this->load->library('enkripsi');
     }
 
+    //===========================================#0002======================================================================================
+    public function pembaca_nilai_kolom_tertentu_like($table,$kolom_rujukan){
+        $this->db->like($kolom_rujukan['nama_kolom'], $kolom_rujukan['nilai']);
+        $query = $this->db->get($table);
+        return $query;
+    }
+    
+    public function akses_opd_table_opd(){ 
+		$query=$this->select_distinct_kolom_tertentu('table_opd','opd');
+		return $query;
+		//nilai fungsi ini array()
+	}
+
+	public function akses_bidang_opd_table_opd($table='table_opd',$opd='opd',$nilai_opd=NULL,$kolom_target='bidang'){ 
+		$kolom_rujukan['nama_kolom']=$opd;
+		$kolom_rujukan['nilai']=$nilai_opd;
+		$query=$this->select_distinct_kolom_tertentu_where($table,$kolom_rujukan,$kolom_target);
+		return $query;
+		//nilai fungsi ini array()
+	}
+
+	public function akses_sub_bidang_opd_table_opd($table='table_opd',$opd='opd',$bidang='bidang',$kolom2_rujukan=NULL){
+        $query="select sub_bidang from $table where $opd='".$kolom2_rujukan[$opd]."' AND $bidang='".$kolom2_rujukan[$bidang]."'";
+		$query1=$this->user_defined_query_model_as_array($query,$token="andisinra");
+		$sub_bidang=array();
+		foreach($query1 as $k=>$isi){
+			$sub_bidang[$k]=$isi['sub_bidang'];
+		}
+        return $sub_bidang;
+		//nilai fungsi ini array()
+    }
+    
+    public function gabung_where($kolom2_rujukan){ //nilai fungsi ini string where
+        $where="\"";
+        foreach($kolom2_rujukan as $k=>$isi){
+            $where=$where.$k."='".$isi."' AND ";
+		}
+		$where=rtrim($where," AND ")."\"";
+		return $where;
+	}
+    
+    public function select_distinct_kolom_tertentu($table,$nama_kolom){
+        $this->db->select($nama_kolom);
+        $this->db->distinct();
+        $query=$this->db->get($table);
+        $query_array=array();
+        foreach ($query->result() as $krow=>$row){
+            $query_array[$krow]=$row->$nama_kolom;
+        }
+        return $query_array;
+    }
+
+    public function select_distinct_kolom_tertentu_where($table,$kolom_rujukan,$kolom_target){
+        $this->db->select($kolom_target);
+        $this->db->where($kolom_rujukan['nama_kolom'], $kolom_rujukan['nilai']);
+        $this->db->distinct();
+        $query=$this->db->get($table);
+        $query_array=array();
+        foreach ($query->result() as $krow=>$row){
+            $query_array[$krow]=$row->$kolom_target;
+        }
+        return $query_array;
+    }
+
+    public function select_distinct_kolom_tertentu_where_and($table,$kolom2_rujukan,$kolom_target){
+        $where=$this->gabung_where($kolom2_rujukan);
+        //echo $where;
+        $this->db->select($kolom_target);
+        $this->db->where($where);
+        //$this->db->distinct();
+        $query=$this->db->get($table);
+        $query_array=array();
+        foreach ($query->result() as $krow=>$row){
+            $query_array[$krow]=$row->$kolom_target;
+        }
+        return $query_array;
+    }
+    //===========================================END #0002==================================================================================
+	
     //======PERUBAHAN FUNGSI general_insertion_model VERSI BARU UNTUK SEKRETARIAT MENERIMA DARI FRONTOFFICE==========
     /**
      * Ini versi baru yang menghilangkan alert di akhir fungsi, karena adanya kesalahan atau error di hostingan.

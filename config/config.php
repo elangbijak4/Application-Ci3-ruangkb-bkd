@@ -41,6 +41,7 @@ $config['alamat_ppegawai']= $config['base_domain'].'/ppegawai-bkd';
 $config['alamat_uptppk']= $config['base_domain'].'/uptppk-bkd';
 
 $config['nama_opd']='BKD';
+$config['nama_opd_panjang']='BADAN KEPEGAWAIAN DAERAH';
 $config['nama_landingpage']=$config['base_domain'].'/sistrabkdsulsel-ver02';
 $config['nama_bidang']='Ruang Kaban BKD Provinsi Sulawesi Selatan';
 $config['nama_bidang_pendek']='Ruang Kaban';
